@@ -2,7 +2,7 @@
   "name": "e191be2024g2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
