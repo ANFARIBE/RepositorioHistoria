@@ -114,7 +114,7 @@ HistoriaRouter.post("/SearchByDocumentoPaciente/", (req, res) => {
 //BuscarPacienteNombre
 HistoriaRouter.post("/SearchByNombrePaciente/", (req, res) => {
     var filtro = {
-        'medico.documentoMedico': req.body.medico.documentoMedico
+        'paciente.nombrePaciente': req.body.medico.nombrePaciente
     };
 
     Historia.find(filtro)
@@ -125,7 +125,7 @@ HistoriaRouter.post("/SearchByNombrePaciente/", (req, res) => {
 //BuscarMedicoDocumento
 HistoriaRouter.post("/SearchByDocumentoMedico/", (req, res) => {
     var filtro = {
-        'medico.especialidadMedico.nombreEspecialidadMedico': req.body.medico.especialidadMedico.nombreEspecialidadMedico
+        'medico.documentoMedico': req.body.medico.documentoMedico
     };
 
     Historia.find(filtro)
@@ -136,6 +136,28 @@ HistoriaRouter.post("/SearchByDocumentoMedico/", (req, res) => {
 //BuscarMedicoNombre
 HistoriaRouter.post("/SearchByNombreMedico/", (req, res) => {
     var filtro = {
+        'medico.nombreMedico': req.body.nombreMedico
+    };
+
+    Historia.find(filtro)
+        .then(datos => res.json({ historia: datos }))
+        .catch(error => res.json({ mensaje: error }));
+});
+
+//Buscar historia por Nombre Especialidad
+HistoriaRouter.post("/SearchByEspecialidad/", (req, res) => {
+    var filtro = {
+        'medico.especialidadMedico.nombreEspecialidadMedico': req.body.medico.especialidadMedico.nombreEspecialidadMedico
+    };
+
+    Historia.find(filtro)
+        .then(datos => res.json({ historia: datos }))
+        .catch(error => res.json({ mensaje: error }));
+});
+
+//Buscar historia por id Cita
+HistoriaRouter.post("/SearchByIdCita/", (req, res) => {
+    var filtro = {
         'cita.idCita': req.body.cita.idCita
     };
 
@@ -143,6 +165,7 @@ HistoriaRouter.post("/SearchByNombreMedico/", (req, res) => {
         .then(datos => res.json({ historia: datos }))
         .catch(error => res.json({ mensaje: error }));
 });
+
 
 //BuscarAntecendentesOrdenada
 HistoriaRouter.post("/Buscar/Fecha/", (req, res) => {
