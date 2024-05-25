@@ -74,18 +74,30 @@ HistoriaRouter.patch("/Update/:id", (req, res) => {
             },
         }
     )
-        .then((datos) => res.status(500).json(datos))
+        .then((datos) => {
+            if (datos) {
+                res.status(200).json(datos)
+            }else{
+                res.status(404).json({ mensaje: "No se Actualizo" });
+            }
+        })            
         .catch((error) => res.status(500).json({ mensaje: error }));
 });
 
-//BuscarCodigoHistoria
+//BuscarIdHistoria
 HistoriaRouter.post("/SearchByIdHistoria/", (req, res) => {
     var filtro = {
         idHistoria: req.body.idHistorias,
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
+        .then(datos => {
+            if (datos) {
+                res.status(200).json({ historia: datos });
+            }else{
+                res.status(404).json({ mensaje: "Historia no encontrada" });
+            } 
+        })
         .catch(error => res.status(500).json({ mensaje: error }));
 });
 
@@ -96,7 +108,12 @@ HistoriaRouter.post("/SearchByCodigoHistoria/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(500).json({ historia: datos }))
+        .then(datos => {
+            if (datos) {
+                res.status(200).json({ historia: datos })
+            }
+            res.status(404).json({ mensaje: "Historia no encontrada" });
+        })
         .catch(error => res.status(500).json({ mensaje: error }));
 });
 
