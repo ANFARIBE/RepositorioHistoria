@@ -79,6 +79,17 @@ HistoriaRouter.patch("/Update/:id", (req, res) => {
 });
 
 //BuscarCodigoHistoria
+HistoriaRouter.post("/SearchByIdHistoria/", (req, res) => {
+    var filtro = {
+        codigoHistoria: req.body.idHistorias,
+    };
+
+    Historia.find(filtro)
+        .then(datos => res.status(501).json({ historia: datos }))
+        .catch(error => res.status(504).json({ mensaje: error }));
+});
+
+//BuscarCodigoHistoria
 HistoriaRouter.post("/SearchByCodigoHistoria/", (req, res) => {
     var filtro = {
         codigoHistoria: req.body.codigoHistoria,
