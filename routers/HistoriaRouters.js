@@ -102,7 +102,6 @@ HistoriaRouter.post("/SearchByHistoriaId/", (req, res) => {
             }
         })
         .catch(error => {
-            console.error("Error en la búsqueda:", error);
             res.status(500).json({ mensaje: error.message });
         });
 });
