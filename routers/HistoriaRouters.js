@@ -85,20 +85,23 @@ HistoriaRouter.patch("/Update/:id", (req, res) => {
 });
 
 //BuscarIdHistoria
-HistoriaRouter.post("/SearchByIdHistoria/", (req, res) => {
+HistoriaRouter.post("/SearchByHistoriaId/", (req, res) => {
     var filtro = {
-        idHistoria: req.body.idHistorias,
+        idHistoria: req.body.idHistoria,
     };
 
-    Historia.find(filtro)
+    Historia.findById(filtro)
         .then(datos => {
             if (datos) {
                 res.status(200).json({ historia: datos });
-            }else{
-                res.status(400).json({ mensaje: "Historia no encontrada" });
-            } 
+            } else {
+                res.status(404).json({ mensaje: "Historia no encontrada" });
+            }
         })
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .catch(error => {
+            console.error("Error en la búsqueda:", error);
+            res.status(500).json({ mensaje: error.message });
+        });
 });
 
 //BuscarCodigoHistoria
@@ -108,12 +111,7 @@ HistoriaRouter.post("/SearchByCodigoHistoria/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => {
-            if (datos) {
-                res.status(200).json({ historia: datos })
-            }
-                res.status(502).json({ mensaje: "Historia no encontrada" });
-        })
+        .then(datos => res.status(200).json({ historia: datos }))
         .catch(error => res.status(500).json({ mensaje: error }));
 });
 
