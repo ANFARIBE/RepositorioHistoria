@@ -86,11 +86,14 @@ HistoriaRouter.patch("/Update/:id", (req, res) => {
 
 //BuscarIdHistoria
 HistoriaRouter.post("/SearchByHistoriaId/", (req, res) => {
-    var filtro = {
-        idHistoria: req.body.idHistoria,
-    };
 
-    Historia.findById(filtro)
+    const idHistoria = req.body.idHistoria;
+    
+    if (!idHistoria) {
+        return res.status(400).json({ mensaje: "El campo 'idHistoria' es requerido" });
+    }
+
+    Historia.findById(idHistoria)
         .then(datos => {
             if (datos) {
                 res.status(200).json({ historia: datos });
