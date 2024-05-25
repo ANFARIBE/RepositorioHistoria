@@ -95,7 +95,7 @@ HistoriaRouter.post("/SearchByIdHistoria/", (req, res) => {
             if (datos) {
                 res.status(200).json({ historia: datos });
             }else{
-                res.status(404).json({ mensaje: "Historia no encontrada" });
+                res.status(502).json({ mensaje: "Historia no encontrada" });
             } 
         })
         .catch(error => res.status(500).json({ mensaje: error }));
@@ -112,7 +112,7 @@ HistoriaRouter.post("/SearchByCodigoHistoria/", (req, res) => {
             if (datos) {
                 res.status(200).json({ historia: datos })
             }
-            res.status(404).json({ mensaje: "Historia no encontrada" });
+                res.status(502).json({ mensaje: "Historia no encontrada" });
         })
         .catch(error => res.status(500).json({ mensaje: error }));
 });
