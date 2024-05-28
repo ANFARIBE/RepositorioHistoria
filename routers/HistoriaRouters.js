@@ -6,8 +6,8 @@ const HistoriaRouter = express.Router();
 //buscarTobhdasHistoria
 HistoriaRouter.get("/GetAll", (req, res) => {
     Historia.find()
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //Guardar historia nueva
@@ -26,24 +26,19 @@ HistoriaRouter.post("/Create", (req, res) => {
         tipoConsulta: req.body.tipoConsulta,
         paciente: req.body.paciente,
         medico: req.body.medico,
-        cita: req.body.cita,
-        OrdenExamenes: req.body.OrdenExamenes,
-        OrdenMedicamentos: req.body.OrdenMedicamentos,
-        OrdenProcedimientos: req.body.OrdenProcedimientos,
-        OrdenRemisiones: req.body.OrdenRemisiones,
-        OrdenIncapacidades: req.body.OrdenIncapacidades
+        cita: req.body.cita
     });
 
     historia.save()
-        .then((datos) => res.status(200).json(datos))
-        .catch((error) => res.status(500).json({ mensaje: error }));
+        .then((datos) => res.status(202).json(datos))
+        .catch((error) => res.status(505).json({ mensaje: error }));
 });
 
 //EliminarHistoria
 HistoriaRouter.delete("/Delete/:id", (req, res) => {
     Historia.deleteOne({ _id: req.params.id })
-        .then((datos) => res.status(200).json(datos))
-        .catch((error) => res.status(500).json({ mensaje: error }));
+        .then((datos) => res.status(202).json(datos))
+        .catch((error) => res.status(505).json({ mensaje: error }));
 });
 
 //ActualizarHistoria
@@ -65,23 +60,18 @@ HistoriaRouter.patch("/Update/:id", (req, res) => {
                 tipoConsulta: req.body.tipoConsulta,
                 paciente: req.body.paciente,
                 medico: req.body.medico,
-                cita: req.body.cita,
-                OrdenExamenes: req.body.OrdenExamenes,
-                OrdenMedicamentos: req.body.OrdenMedicamentos,
-                OrdenProcedimientos: req.body.OrdenProcedimientos,
-                OrdenRemisiones: req.body.OrdenRemisiones,
-                OrdenIncapacidades: req.body.OrdenIncapacidades
+                cita: req.body.cita
             },
         }
     )
         .then((datos) => {
             if (datos) {
-                res.status(200).json(datos)
+                res.status(202).json(datos)
             }else{
                 res.status(404).json({ mensaje: "No se Actualizo" });
             }
         })            
-        .catch((error) => res.status(500).json({ mensaje: error }));
+        .catch((error) => res.status(505).json({ mensaje: error }));
 });
 
 //BuscarIdHistoria
@@ -90,19 +80,19 @@ HistoriaRouter.post("/SearchByHistoriaId/", (req, res) => {
     const idHistoria = req.body.idHistoria;
     
     if (!idHistoria) {
-        return res.status(400).json({ mensaje: "El campo 'idHistoria' es requerido" });
+        return res.status(405).json({ mensaje: "El campo 'idHistoria' es requerido" });
     }
 
     Historia.findById(idHistoria)
         .then(datos => {
             if (datos) {
-                res.status(200).json({ historia: datos });
+                res.status(202).json({ historia: datos });
             } else {
-                res.status(404).json({ mensaje: "Historia no encontrada" });
+                res.status(405).json({ mensaje: "Historia no encontrada" });
             }
         })
         .catch(error => {
-            res.status(500).json({ mensaje: error.message });
+            res.status(505).json({ mensaje: error.message });
         });
 });
 
@@ -113,8 +103,8 @@ HistoriaRouter.post("/SearchByCodigoHistoria/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //BuscarTipoConsulta
@@ -124,8 +114,8 @@ HistoriaRouter.post("/SearchByTipoConsulta/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //BuscarPacienteDocumento
@@ -135,8 +125,8 @@ HistoriaRouter.post("/SearchByDocumentoPaciente/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //BuscarPacienteNombre
@@ -146,8 +136,8 @@ HistoriaRouter.post("/SearchByNombrePaciente/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //BuscarMedicoDocumento
@@ -157,8 +147,8 @@ HistoriaRouter.post("/SearchByDocumentoMedico/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //BuscarMedicoNombre
@@ -168,8 +158,8 @@ HistoriaRouter.post("/SearchByNombreMedico/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //Buscar historia por Nombre Especialidad
@@ -179,8 +169,8 @@ HistoriaRouter.post("/SearchByEspecialidad/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 //Buscar historia por id Cita
@@ -190,8 +180,8 @@ HistoriaRouter.post("/SearchByIdCita/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 
@@ -202,8 +192,8 @@ HistoriaRouter.post("/Buscar/Fecha/", (req, res) => {
     };
 
     Historia.find(filtro)
-        .then(datos => res.status(200).json({ historia: datos }))
-        .catch(error => res.status(500).json({ mensaje: error }));
+        .then(datos => res.status(202).json({ historia: datos }))
+        .catch(error => res.status(505).json({ mensaje: error }));
 });
 
 
