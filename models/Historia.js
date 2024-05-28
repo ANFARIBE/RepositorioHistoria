@@ -55,18 +55,6 @@ const Historia = mongoose.Schema({
             "type": "string",
             "required": true
         },
-        "direccionPaciente": {
-            "type": "string",
-            "required": true
-        },
-        "telefonoPaciente": {
-            "type": "string",
-            "required": true
-        },
-        "correoPaciente": {
-            "type": "string",
-            "required": true
-        },
         "tipoDocumentoPaciente": {
             "type": "string",
             "required": true
@@ -90,10 +78,6 @@ const Historia = mongoose.Schema({
             "required": true
         },
         "apellidosMedico": {
-            "type": "string",
-            "required": true
-        },
-        "correoMedico": {
             "type": "string",
             "required": true
         },
